@@ -18,7 +18,7 @@ export default function Login () {
 	function doSubmit (event) {
 		event.preventDefault();
 
-		axios.post('http://localhost:5000/login', {
+		axios.post('https://back-projeto13.herokuapp.com/login', {
 			email: form.email,
 			senha: form.password
 		}).then(response => {

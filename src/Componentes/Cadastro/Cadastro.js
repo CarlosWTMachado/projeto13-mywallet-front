@@ -18,7 +18,7 @@ export default function Cadastro () {
 
 	function doSubmit (event) {
 		event.preventDefault();
-		axios.post('http://localhost:5000/cadastro', {
+		axios.post('https://back-projeto13.herokuapp.com/cadastro', {
 			nome: form.name,
 			email: form.email,
 			senha: form.password,
