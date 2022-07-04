@@ -17,8 +17,6 @@ export default function Login () {
 
 	function doSubmit (event) {
 		event.preventDefault();
-		console.log(form.email);
-		console.log(form.password);
 
 		axios.post('http://localhost:5000/login', {
 			email: form.email,
@@ -27,7 +25,7 @@ export default function Login () {
 			const {data} = response;
 			console.log(data)
 			localStorage.setItem('MyWalletToken', data.token);
-			//navigate ('/home');
+			navigate ('/home');
 			/*
 			,{state: {
 				image: data.image,
