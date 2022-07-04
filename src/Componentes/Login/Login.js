@@ -24,7 +24,7 @@ export default function Login () {
 		}).then(response => {
 			const {data} = response;
 			console.log(data)
-			localStorage.setItem('MyWalletToken', data.token);
+			localStorage.setItem('MyWalletToken', data);
 			navigate ('/home');
 			/*
 			,{state: {

@@ -1,18 +1,46 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import axios from 'axios';
 import styled from "styled-components";
 
 export default function NovaEntrada () {
-    const navigate = useNavigate();
-    const [value, setValue] = useState('');
-    const [description, setDescription] = useState('');
+	const navigate = useNavigate();
+	const [form, setForm] = useState({
+		valor: '',
+		descricao: '',
+	});
+
+	function handleForm (e) {
+		setForm({...form, [e.target.name]: e.target.value,});
+	}
+
+	function doSubmit (event) {
+		event.preventDefault();
+		axios.post('https://back-projeto13.herokuapp.com/entrada', {
+			valor: form.valor,
+			descricao: form.descricao
+		},{
+			headers: {
+				'Authorization': `Bearer ${localStorage.getItem('MyWalletToken')}` 
+			}
+		}).then(response => {
+			const {data} = response;
+			console.log(data)
+			navigate ('/home');
+			/*
+			,{state: {
+				image: data.image,
+			}});
+			*/
+		}).catch(error => console.log(error));
+	}
 
     return (
         <Entrance>
             <PageTitle>Nova entrada</PageTitle>
-            <Input type={'text'} placeholder={'Valor'} value={value} onChange={(e) => setValue(e.target.value)}/>
-            <Input type={'text'} placeholder={'Descrição'} value={description} onChange={(e) => setDescription(e.target.value)}/>
-            <Button onClick={navigate('/home')}>Salvar entrada</Button>
+            <Input type='number' placeholder='Valor' name='valor' value={form.valor} onChange={handleForm}/>
+            <Input type='text' placeholder='Descrição' name='descricao' value={form.descricao} onChange={handleForm}/>
+            <Button onClick={doSubmit}>Salvar entrada</Button>
         </Entrance>
     );
 }
